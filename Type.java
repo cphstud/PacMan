@@ -14,7 +14,5 @@ enum Type {
     
     int getId() {
       return id;
-    }
-      
-    
+    }  
 }
