@@ -1,4 +1,4 @@
-Node[][] bane; //<>//
+Node[][] bane; //<>// //<>// //<>//
 Actor[] actors;
 
 int w, h, unit, numOfRows, numOfCols, numOfActors, delay;
@@ -70,12 +70,48 @@ void initActors() {
 void moveActors() {
   for (int i=0; i<numOfActors; i++) {
     //float x, float y, String n, int s
-    int dirRand = int (random(1, 4));
+
     if (frameCount%delay==0) {
-       println("A moved " + actors[i].getInfo());
-    actors[i].move(dirRand);
+      int dirRand = 1;
+      boolean retry = true;
+      boolean change = true;
+      Type newType = Type.WALL;
+
+      int aI=int (actors[i].xPos);
+      int aJ=int (actors[i].yPos);
+      int newI=aI;
+      int newJ=aJ; //<>//
+
+      while (retry) {
+        change=true;
+        dirRand = int (random(1, 5));
+        switch (dirRand) {
+        case 1:
+          if (newJ>0) {newJ=newJ-1;} else {change=false;};
+          break;
+        case 2:
+          if (newI>0) {newI=newI-1;} else {change=false;};
+          break;
+        case 3:
+          if (newI<numOfRows-1) {newI=newI+1;} else {change=false;};
+          break;
+        case 4:
+          if (newJ<numOfCols-1) {newJ=newJ+1;} else {change=false;};
+          break;
+        }
+        newType = bane[newI][newJ].nodeType;
+        if (newType==Type.PASSAGE && change) {
+          retry=false;
+        } else {
+          newI=aI;
+          newJ=aJ;
+        }
+        println(newType);
+      }
+
+      println("A moved " + actors[i].getInfo());
+      actors[i].move(dirRand);
     }
-   
   }
 }
 

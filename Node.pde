@@ -16,7 +16,7 @@ class Node {
   }
 
   void display() {
-    int fillVal = nodeType.getId(); //<>//
+    int fillVal = nodeType.getId();
 
     fill(fillVal*6, 100, 100);
     rectMode(CENTER);
